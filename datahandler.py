@@ -22,8 +22,8 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     try:
         ftp.connect(host=ftp_host,port=host_port)
     except:
-        print(f'cannot connect to {ftp_host} ')
-        addLog(f'cannot connect to {ftp_host} \n')
+        print(f'cannot connect to {ftp_host} check port or server address')
+        addLog(f'cannot connect to {ftp_host} check port or server address\n')
     ftp.auth()
     try:
         ftp.login(user=ftp_user,passwd=ftp_pass)
@@ -46,6 +46,9 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
             with gzip.open(file,'rb') as zipped_file:
                 with open(file[slice(0,31)],'wb') as unzipped_file:
                     shutil.copyfileobj(zipped_file,unzipped_file)
+        except:
+            print(f"{file} won't open")
+        else:
             tree = et.parse(file[slice(0,31)])
             root = tree.getroot()
             ans = root.find("ActivatedNumbers")
@@ -67,8 +70,6 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
                     data.append(object)
             except:
                 print(f"{file} is empty.")
-        except:
-            print(f"{file} won't open")
     ftp.quit()
     for file in dir_names:
         try:
@@ -76,8 +77,11 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
             os.remove(file[slice(0,len(file)-3)])
         except:
             pass
-    print("Download all data function complete.")
-    addLog("Download all data function complete.\n")
+    if data == []:
+        print("Failed: Download all data function.")
+    else:
+        print("Download all data function complete.")
+        addLog("Download all data function complete.\n")
     return data
 
 
@@ -155,8 +159,8 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
     try:
         ftp.connect(host=ftp_host,port=host_port)
     except:
-        print(f'cannot connect to {ftp_host} ')
-        addLog(f'Cannot connect to {ftp_host} \n')
+        print(f'cannot connect to {ftp_host} check port or server address')
+        addLog(f'Cannot connect to {ftp_host} check port or server address\n')
     ftp.auth()
     try:
         ftp.login(user=ftp_user,passwd=ftp_pass)
@@ -179,6 +183,11 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
         with gzip.open(file,'rb') as zipped_file:
             with open(file[slice(0,31)],'wb') as unzipped_file:
                 shutil.copyfileobj(zipped_file,unzipped_file)
+    except:
+        print(f"{file} won't open")
+        addLog(f"{file} won't open\n")
+    else:
+        ftp.quit()
         tree = et.parse(file[slice(0,31)])
         root = tree.getroot()
         ans = root.find("ActivatedNumbers")
@@ -206,10 +215,6 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
             addLog(f"{file} from {ftp_user} is empty.\n")
             sendEmail("CRDB Daily Update", f"{file} from {ftp_user} had no new data\n")
 
-    except:
-        print(f"{file} won't open")
-        addLog(f"{file} won't open\n")
-    ftp.quit()
     try:
         os.remove(file)
         os.remove(file[slice(0,len(file)-3)])

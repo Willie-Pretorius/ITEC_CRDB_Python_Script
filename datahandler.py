@@ -3,11 +3,9 @@ import ftplib
 import os
 import gzip
 import shutil
-import lxml
 import xml.etree.ElementTree as et
 from pymongo import MongoClient
 dir_names=[]
-import time
 
 def see_info(string):
     global dir_names
@@ -82,8 +80,9 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     addLog("Download all data function complete.\n")
     return data
 
+
 def DataWriter(data):
-    client = MongoClient('mongodb://localhost:27017/')
+    client = MongoClient('mongodb://127.0.0.1:27017/')
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")
@@ -96,7 +95,7 @@ def DataWriter(data):
 
 def DBTester():
     try:
-        client = MongoClient('mongodb://localhost:27017/')
+        client = MongoClient('mongodb://127.0.0.1:27017/')
         mydb = client['numbers_db']
         mycol = mydb['numbers_col']
         print("dbNumbers successfully opened")

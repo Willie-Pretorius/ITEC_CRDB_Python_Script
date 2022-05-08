@@ -143,6 +143,7 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
 
 def translator(file,ftp_user):
     global data
+    data =[]
     tree = et.parse(file[slice(0, 31)])
     root = tree.getroot()
     ans = root.find("ActivatedNumbers")
@@ -192,7 +193,7 @@ def DataWriter(data):
 
 def DBTester():
     try:
-        client = MongoClient('mongodb://127.0.0.1:27017/')
+        client = MongoClient('mongodb://127.0.0.1:27017/numbers_db')
         mydb = client['numbers_db']
         mycol = mydb['numbers_col']
         print("dbNumbers successfully opened")
@@ -204,7 +205,7 @@ def DBTester():
 
 
 def DataPurge():
-    client = MongoClient('mongodb://localhost:27017/')
+    client = MongoClient('mongodb://localhost:27017/numbers_db')
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")

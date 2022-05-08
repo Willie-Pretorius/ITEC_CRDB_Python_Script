@@ -1,4 +1,4 @@
-from datahandler import DataPurge,DBTester,Download_all_updates,Download_latest_update,DataWriter,ftp_tester
+from datahandler import DataPurge,DBTester,Download_all_updates,Download_latest_update,DataWriter,ftp_tester,OneTimeFTP
 from logginghandler import sendEmail
 
 ftp_host = ""
@@ -14,7 +14,7 @@ path2 = ""
 config = ""
 
 #initial setup wizard
-def Setup_wizard():
+def setupWizard():
     print("Welcome to the setup wizard.\n Please take a minute to configure your porting.co.za ftp settings")
     ftp_host = input("FTP Server address: ")
     ftp_port = int(input("FTP port: "))
@@ -36,8 +36,18 @@ def Setup_wizard():
         file.write("")
         file.close()
 
+def OneTimeFTP_EXEC():
+    print("Configure One Time FTP server\n Please take a minute to configure your porting.co.za ftp settings")
+    otftp_host = input("FTP Server address: ")
+    otftp_port = int(input("FTP port: "))
+    otftp_user = input("FTP Username: ")
+    otftp_pass = input("FTP Password: ")
+    otpath = input("path('/DWNLDS'):")
+    data = OneTimeFTP(otftp_host,otftp_port,otftp_user,otftp_pass,otpath)
+    DataWriter(data)
+
 #writes config to be 0 so the script can run in routine mode.
-def disable_config():
+def disableConfig():
     global ftp_host, host_port, ftp_user, ftp_pass, path, ftp_host2, host_port2, ftp_user2, ftp_pass2, path2, config
     ftp1 = f"host:{ftp_host}\nport:{host_port}\nuser:{ftp_user}\npass:{ftp_pass}\npath:{path}\nftp_num:2\nconfig_mode:0"
     ftp1 += f"\nhost:{ftp_host2}\nport:{host_port2}\nuser:{ftp_user2}\npass:{ftp_pass2}\npath:{path2}"
@@ -47,7 +57,7 @@ def disable_config():
     print("Config has been reset to 0 routing starts will resume.")
 
 #allows user to configure smtp details and save to file.
-def config_smtp():
+def configSmtp():
     print("Please enter your SMTP details below.")
     smtp_server = input("SMTP server: ")
     from_address = input("From address: ")
@@ -70,7 +80,7 @@ def Loader(file):
     return options
 
 #Writes current config from config file to global variables.
-def config_loader():
+def configLoader():
     global ftp_host, host_port, ftp_user, ftp_pass, path, ftp_host2, host_port2, ftp_user2, ftp_pass2, path2, config
     with open(".config", "r") as file:
         options = Loader(file)
@@ -90,9 +100,9 @@ def config_loader():
 
 #Initiates setup wizard so user can configure ftp details also downloads
 #all current updates and writes them to database
-def first_start():
-    Setup_wizard()
-    config_loader()
+def firstStart():
+    setupWizard()
+    configLoader()
     data = Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
     DataWriter(data)
     data2 = Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
@@ -107,25 +117,25 @@ def redownload():
     DataWriter(data2)
 
 #daily script to download latest updates file.
-def routine_start():
+def routineStart():
     data = Download_latest_update(ftp_host, host_port, ftp_user, ftp_pass, path)
     DataWriter(data)
     data2 = Download_latest_update(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
     DataWriter(data2)
 
 #does a test login to configured ftp servers and returns file list.
-def ftp_test_exec():
+def ftpTestExec():
     print("testing ftp server 1")
     ftp_tester(ftp_host, host_port, ftp_user, ftp_pass, path)
     print("testing ftp server 2")
     ftp_tester(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
 
 #tests connection to MongoDB database.
-def DB_Tester_exec():
+def DbTesterExec():
     DBTester()
 
 #Purges all info stored in the database. Recommended to run redownload afterwards.
-def DB_Purge_exec():
+def DbPurgeExec():
     DataPurge()
 
 #This code was written by Willie Pretorius

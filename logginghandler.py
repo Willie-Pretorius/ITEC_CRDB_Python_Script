@@ -4,7 +4,7 @@ import smtplib
 def addLog(input):
     time = datetime.datetime.now()
     try:
-        with open(".log","a") as file:
+        with open("logs.txt","a") as file:
             file.writelines(f"{time}:{input}")
             file.close()
     except:
@@ -13,16 +13,20 @@ def addLog(input):
 #takes in a subject and a body and sends an email to the configured address in .smtpconfig
 def sendEmail(subject,body):
     options = []
-    with open(".smtpconfig", "r") as file:
-        text = file.read()
-        lines = text.split("\n")
-        for line in lines:
-            options.append(line.split(":")[1])
-    smtp_server = options[0]
-    from_address = options[1]
-    username = options[2]
-    password = options[3]
-    to_address = options[4]
+    try:
+        with open(".smtpconfig", "r") as file:
+            text = file.read()
+            lines = text.split("\n")
+            for line in lines:
+                options.append(line.split(":")[1])
+        smtp_server = options[0]
+        from_address = options[1]
+        username = options[2]
+        password = options[3]
+        to_address = options[4]
+    except:
+        print("Email notification failed. Check SMTP settings.\n")
+        addLog("Email notification failed. Check SMTP settings.\n")
     try:
         connection = smtplib.SMTP(smtp_server)
         connection.starttls()

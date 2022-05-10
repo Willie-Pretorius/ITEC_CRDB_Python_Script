@@ -1,5 +1,4 @@
-from datahandler import DataPurge,DBTester,Download_all_updates,Download_latest_update,DataWriter,ftp_tester,OneTimeFTP
-from logginghandler import sendEmail
+from datahandler import *
 
 ftp_host = ""
 host_port = ""
@@ -103,25 +102,19 @@ def configLoader():
 def firstStart():
     setupWizard()
     configLoader()
-    data = Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
-    DataWriter(data)
-    data2 = Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
-    DataWriter(data2)
+    Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
+    Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
 
 #redownloads and updates database with all update files. Can be used with Purge function
 #to repopulate data.
 def redownload():
-    data = Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
-    DataWriter(data)
-    data2 = Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
-    DataWriter(data2)
+    Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
+    Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
 
 #daily script to download latest updates file.
 def routineStart():
-    data = Download_latest_update(ftp_host, host_port, ftp_user, ftp_pass, path)
-    DataWriter(data)
-    data2 = Download_latest_update(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
-    DataWriter(data2)
+    Download_latest_update(ftp_host, host_port, ftp_user, ftp_pass, path)
+    Download_latest_update(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
 
 #does a test login to configured ftp servers and returns file list.
 def ftpTestExec():

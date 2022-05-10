@@ -53,12 +53,12 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
         addLog(f"Couldn't delete {file}\n")
     print(f"Routine download complete, {len(data)} processed")
     addLog(f"Routine download complete, {len(data)} processed\n")
-    sendEmail("CRDB Daily Update", f"{len(data)} from {ftp_user} has been processed and uploaded.\n")
-    return data
+    DataWriter(data,ftp_user)
 
 def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
     global dir_names, data
+    data = []
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"",[])
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"download",dir_names)
     for file in dir_names:
@@ -66,16 +66,24 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     for file in dir_names:
         try:
             os.remove(file)
-            os.remove(file[slice(0,len(file)-3)])
         except:
             print(f"Couldn't delete {file}")
-            addLog(f"Couldn't delete {file}\n")
+            addLog(f"Couldn't delete {file}")
+        try:
+            os.remove(file[slice(0, len(file) - 3)])
+        except:
+            try:
+                os.remove(file[slice(0, len(file) - 2)])
+            except:
+                print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
+                addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
+
     if data == []:
         print("Failed: Download all data function.")
     else:
         print(f"Download all data function complete, {len(data)} processed.")
         addLog(f"Download all data function complete, {len(data)} processed\n")
-    return data
+    DataWriter(data,ftp_user)
 
 def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
@@ -87,15 +95,24 @@ def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
     for file in dir_names:
         try:
             os.remove(file)
-            os.remove(file[slice(0,len(file)-3)])
         except:
-            pass
+            print(f"Couldn't delete {file}")
+            addLog(f"Couldn't delete {file}")
+        try:
+            os.remove(file[slice(0, len(file) - 3)])
+        except:
+            try:
+                os.remove(file[slice(0, len(file) - 2)])
+            except:
+                print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
+                addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
+
     if data == []:
         print("Failed: Download all data function.")
     else:
         print("Download all data function complete.")
         addLog("Download all data function complete.\n")
-    return data
+    DataWriter(data,ftp_user)
 
 
 def appendFileName(string):
@@ -173,7 +190,7 @@ def translator(file,ftp_user):
 
 #Pymongo functions.
 
-def DataWriter(data):
+def DataWriter(data,ftp_user):
     client = MongoClient('mongodb://127.0.0.1:27017/numbers_db')
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
@@ -190,6 +207,7 @@ def DataWriter(data):
     print("Data successfully uploaded to Database.")
     client.close()
     addLog(f"{len(data)} numbers successfully uploaded to Database\n")
+    sendEmail("CRDB Daily Update", f"{len(data)} from {ftp_user} has been processed and uploaded.\n")
 
 def DBTester():
     try:

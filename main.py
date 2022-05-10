@@ -1,5 +1,5 @@
-from ftsetup import configSmtp,disableConfig,DbPurgeExec,DbTesterExec,setupWizard,Loader,setupWizard,configLoader,firstStart,routineStart,redownload, ftpTestExec,OneTimeFTP_EXEC
-from logginghandler import addLog,sendEmail
+from ftsetup import *
+from logginghandler import *
 def menu():
     addLog("Menu has been accessed\n")
     exit_me = False

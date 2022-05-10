@@ -1,5 +1,5 @@
 import datetime
-import smtplib
+import smtplib,ssl
 #adds input text to .log file.
 def addLog(input):
     time = datetime.datetime.now()
@@ -16,6 +16,7 @@ def sendEmail(subject,body):
     try:
         with open(".smtpconfig", "r") as file:
             text = file.read()
+            text = text.replace(" ", "")
             lines = text.split("\n")
             for line in lines:
                 options.append(line.split(":")[1])
@@ -28,19 +29,21 @@ def sendEmail(subject,body):
         print("Email notification failed. Check SMTP settings.\n")
         addLog("Email notification failed. Check SMTP settings.\n")
     try:
+        context = ssl.create_default_context()
         connection = smtplib.SMTP(smtp_server)
-        connection.starttls()
+        connection.starttls(context=context)
     except:
-        print("smtp connection failed")
+        print("Smtp connection failed")
     try:
         connection.login(user=username,password=password)
     except:
-        print("login failed.")
+        print("Login failed.")
     try:
         connection.sendmail(from_addr=from_address,to_addrs=to_address,msg=f"{subject}\n\n{body}")
+        print("Send email sent successfully.")
         connection.close()
     except:
-        print("send email failed.")
+        print("Send email failed.")
 
 #This code was written by Willie Pretorius
 #Fork me at https://github.com/Willie-Pretorius

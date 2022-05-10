@@ -47,10 +47,17 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
         translator(file, ftp_user)
     try:
         os.remove(file)
-        os.remove(file[slice(0,len(file)-3)])
     except:
         print(f"Couldn't delete {file}")
-        addLog(f"Couldn't delete {file}\n")
+        addLog(f"Couldn't delete {file}")
+    try:
+        os.remove(file[slice(0, len(file) - 3)])
+    except:
+        try:
+            os.remove(file[slice(0, len(file) - 2)])
+        except:
+            print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
+            addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
     print(f"Routine download complete, {len(data)} processed")
     addLog(f"Routine download complete, {len(data)} processed\n")
     DataWriter(data,ftp_user)

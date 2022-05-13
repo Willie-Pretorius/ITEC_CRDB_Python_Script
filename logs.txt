@@ -1,0 +1,192 @@
+2022-05-08 21:23:27.946233:Menu has been accessed
+2022-05-08 21:23:30.801006:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 21:23:33.502567:Routine download complete. 25 processed
+2022-05-08 21:23:33.627754:25 numbers successfully uploaded to Database
+2022-05-08 21:23:34.105933:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 21:23:37.345110:Routine download complete. 1647 processed
+2022-05-08 21:24:24.809394:1647 numbers successfully uploaded to Database
+2022-05-08 21:32:11.112036:Menu has been accessed
+2022-05-08 21:32:15.028269:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 21:32:15.029757:Routine download complete. 25 processed
+2022-05-08 21:32:15.148304:25 numbers successfully uploaded to Database
+2022-05-08 21:32:15.596374:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 21:32:15.598360:Routine download complete. 1647 processed
+2022-05-08 21:33:05.184699:1647 numbers successfully uploaded to Database
+2022-05-08 21:44:14.376859:Menu has been accessed
+2022-05-08 21:44:19.855330:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 21:44:19.856322:Routine download complete. 25 processed
+2022-05-08 21:44:19.957267:25 numbers successfully uploaded to Database
+2022-05-08 21:44:20.474665:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 21:44:20.476623:Routine download complete. 1647 processed
+2022-05-08 21:53:39.910911:Menu has been accessed
+2022-05-08 21:53:47.254125:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 21:53:47.254621:Routine download complete. 25 processed
+2022-05-08 21:53:47.385113:25 numbers successfully uploaded to Database
+2022-05-08 21:53:47.870007:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 21:53:47.872488:Routine download complete. 1647 processed
+2022-05-08 21:53:55.464811:Menu has been accessed
+2022-05-08 21:53:58.463269:DGNPDownload20220425023106.xml.gz from itecgnp is empty.
+2022-05-08 21:53:58.477673:DGNPDownload20220426023105.xml.gz added to array
+2022-05-08 21:53:58.487573:DGNPDownload20220427023112.xml.gz added to array
+2022-05-08 21:53:58.496996:DGNPDownload20220428023114.xml.gz added to array
+2022-05-08 21:53:58.506914:DGNPDownload20220429023059.xml.gz added to array
+2022-05-08 21:53:58.514850:DGNPDownload20220430023103.xml.gz added to array
+2022-05-08 21:53:58.524274:DGNPDownload20220501023105.xml.gz added to array
+2022-05-08 21:53:58.529229:DGNPDownload20220501065210.xml.gz added to array
+2022-05-08 21:53:58.535181:DGNPDownload20220502023108.xml.gz added to array
+2022-05-08 21:53:58.537139:DGNPDownload20220503023100.xml.gz added to array
+2022-05-08 21:53:58.548886:DGNPDownload20220504023104.xml.gz added to array
+2022-05-08 21:53:58.559828:DGNPDownload20220505023133.xml.gz added to array
+2022-05-08 21:53:58.568228:DGNPDownload20220506023102.xml.gz added to array
+2022-05-08 21:53:58.574676:DGNPDownload20220507023110.xml.gz added to array
+2022-05-08 21:53:58.582134:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 21:53:58.588564:Download all data function complete.
+2022-05-08 21:54:02.230081:Menu has been accessed
+2022-05-08 21:54:13.008276:Menu has been accessed
+2022-05-08 21:54:34.448092:Menu has been accessed
+2022-05-08 21:56:44.183325:Menu has been accessed
+2022-05-08 21:56:45.984820:DB Connection successfully tested
+2022-05-08 21:57:02.518117:Database Purged
+2022-05-08 21:58:15.463239:Menu has been accessed
+2022-05-08 21:58:30.243573:Menu has been accessed
+2022-05-08 21:59:29.968749:error login into FTP server ftps.porting.co.za using itecgnp
+2022-05-08 21:59:29.970172:/DWNLDS not available
+2022-05-08 22:01:23.722229:Menu has been accessed
+2022-05-08 22:02:16.817826:DGNPDownload20220425023106.xml.gz from itecgnp is empty.
+2022-05-08 22:02:16.826780:DGNPDownload20220426023105.xml.gz added to array
+2022-05-08 22:02:16.833228:DGNPDownload20220427023112.xml.gz added to array
+2022-05-08 22:02:16.839204:DGNPDownload20220428023114.xml.gz added to array
+2022-05-08 22:02:16.849126:DGNPDownload20220429023059.xml.gz added to array
+2022-05-08 22:02:16.855545:DGNPDownload20220430023103.xml.gz added to array
+2022-05-08 22:02:16.861179:DGNPDownload20220501023105.xml.gz added to array
+2022-05-08 22:02:16.866638:DGNPDownload20220501065210.xml.gz added to array
+2022-05-08 22:02:16.871833:DGNPDownload20220502023108.xml.gz added to array
+2022-05-08 22:02:16.873412:DGNPDownload20220503023100.xml.gz added to array
+2022-05-08 22:02:16.886311:DGNPDownload20220504023104.xml.gz added to array
+2022-05-08 22:02:16.897718:DGNPDownload20220505023133.xml.gz added to array
+2022-05-08 22:02:16.908134:DGNPDownload20220506023102.xml.gz added to array
+2022-05-08 22:02:16.915078:DGNPDownload20220507023110.xml.gz added to array
+2022-05-08 22:02:16.923014:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:02:16.928967:Download all data function complete.
+2022-05-08 22:05:46.667429:Menu has been accessed
+2022-05-08 22:06:15.854703:Menu has been accessed
+2022-05-08 22:06:28.773272:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:06:28.775231:Routine download complete. 25 processed
+2022-05-08 22:06:28.835088:25 numbers successfully uploaded to Database
+2022-05-08 22:06:29.299015:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 22:06:29.301493:Routine download complete. 1647 processed
+2022-05-08 22:06:31.539706:1647 numbers successfully uploaded to Database
+2022-05-08 22:06:37.343743:DGNPDownload20220425023106.xml.gz from itecgnp is empty.
+2022-05-08 22:06:37.352175:DGNPDownload20220426023105.xml.gz added to array
+2022-05-08 22:06:37.359146:DGNPDownload20220427023112.xml.gz added to array
+2022-05-08 22:06:37.364106:DGNPDownload20220428023114.xml.gz added to array
+2022-05-08 22:06:37.376478:DGNPDownload20220429023059.xml.gz added to array
+2022-05-08 22:06:37.386402:DGNPDownload20220430023103.xml.gz added to array
+2022-05-08 22:06:37.392847:DGNPDownload20220501023105.xml.gz added to array
+2022-05-08 22:06:37.397807:DGNPDownload20220501065210.xml.gz added to array
+2022-05-08 22:06:37.405247:DGNPDownload20220502023108.xml.gz added to array
+2022-05-08 22:06:37.407265:DGNPDownload20220503023100.xml.gz added to array
+2022-05-08 22:06:37.417646:DGNPDownload20220504023104.xml.gz added to array
+2022-05-08 22:06:37.426106:DGNPDownload20220505023133.xml.gz added to array
+2022-05-08 22:06:37.437516:DGNPDownload20220506023102.xml.gz added to array
+2022-05-08 22:06:37.451375:DGNPDownload20220507023110.xml.gz added to array
+2022-05-08 22:06:37.456335:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:06:37.463280:Download all data function complete.
+2022-05-08 22:08:11.771174:Menu has been accessed
+2022-05-08 22:08:15.376029:DGNPDownload20220425023106.xml.gz from itecgnp is empty.
+2022-05-08 22:08:15.386916:DGNPDownload20220426023105.xml.gz added to array
+2022-05-08 22:08:15.394353:DGNPDownload20220427023112.xml.gz added to array
+2022-05-08 22:08:15.400314:DGNPDownload20220428023114.xml.gz added to array
+2022-05-08 22:08:15.413208:DGNPDownload20220429023059.xml.gz added to array
+2022-05-08 22:08:15.421156:DGNPDownload20220430023103.xml.gz added to array
+2022-05-08 22:08:15.426118:DGNPDownload20220501023105.xml.gz added to array
+2022-05-08 22:08:15.432569:DGNPDownload20220501065210.xml.gz added to array
+2022-05-08 22:08:15.439546:DGNPDownload20220502023108.xml.gz added to array
+2022-05-08 22:08:15.441496:DGNPDownload20220503023100.xml.gz added to array
+2022-05-08 22:08:15.451907:DGNPDownload20220504023104.xml.gz added to array
+2022-05-08 22:08:15.460303:DGNPDownload20220505023133.xml.gz added to array
+2022-05-08 22:08:15.471743:DGNPDownload20220506023102.xml.gz added to array
+2022-05-08 22:08:15.479647:DGNPDownload20220507023110.xml.gz added to array
+2022-05-08 22:08:15.486095:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:08:15.491552:Download all data function complete.
+2022-05-08 22:10:00.891458:Menu has been accessed
+2022-05-08 22:13:40.261087:Menu has been accessed
+2022-05-08 22:13:43.582770:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:13:43.584259:Routine download complete. 25 processed
+2022-05-08 22:13:43.691890:25 numbers successfully uploaded to Database
+2022-05-08 22:13:44.219138:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 22:13:44.222115:Routine download complete. 1647 processed
+2022-05-08 22:13:48.361230:1647 numbers successfully uploaded to Database
+2022-05-08 22:14:13.429909:Menu has been accessed
+2022-05-08 22:14:18.448396:DGNPDownload20220425023106.xml.gz from itecgnp is empty.
+2022-05-08 22:14:18.459799:DGNPDownload20220426023105.xml.gz added to array
+2022-05-08 22:14:18.467207:DGNPDownload20220427023112.xml.gz added to array
+2022-05-08 22:14:18.474652:DGNPDownload20220428023114.xml.gz added to array
+2022-05-08 22:14:18.486055:DGNPDownload20220429023059.xml.gz added to array
+2022-05-08 22:14:18.492534:DGNPDownload20220430023103.xml.gz added to array
+2022-05-08 22:14:18.497463:DGNPDownload20220501023105.xml.gz added to array
+2022-05-08 22:14:18.502648:DGNPDownload20220501065210.xml.gz added to array
+2022-05-08 22:14:18.508107:DGNPDownload20220502023108.xml.gz added to array
+2022-05-08 22:14:18.509595:DGNPDownload20220503023100.xml.gz added to array
+2022-05-08 22:14:18.517530:DGNPDownload20220504023104.xml.gz added to array
+2022-05-08 22:14:18.524970:DGNPDownload20220505023133.xml.gz added to array
+2022-05-08 22:14:18.531914:DGNPDownload20220506023102.xml.gz added to array
+2022-05-08 22:14:18.537866:DGNPDownload20220507023110.xml.gz added to array
+2022-05-08 22:14:18.542827:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:14:18.548286:Download all data function complete.
+2022-05-08 22:17:24.190412:Menu has been accessed
+2022-05-08 22:17:26.654625:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:17:26.655618:Routine download complete. 25 processed
+2022-05-08 22:21:20.422798:Menu has been accessed
+2022-05-08 22:21:22.877033:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 22:21:22.878522:Routine download complete. 25 processed
+2022-05-08 22:21:25.680944:25 numbers successfully uploaded to Database
+2022-05-08 22:21:26.119851:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 22:21:26.122330:Routine download complete. 1647 processed
+2022-05-08 22:21:31.708841:1647 numbers successfully uploaded to Database
+2022-05-08 22:23:20.581964:Menu has been accessed
+2022-05-08 23:22:34.179507:Menu has been accessed
+2022-05-08 23:22:48.607117:DGNPDownload20220508023105.xml.gz added to array
+2022-05-08 23:22:48.608076:Routine download complete, 25 processed
+2022-05-08 23:22:51.474458:25 numbers successfully uploaded to Database
+2022-05-08 23:22:51.946153:DCRDBDownload20220508020149.xml.gz added to array
+2022-05-08 23:22:51.947640:Routine download complete, 1647 processed
+2022-05-08 23:22:57.930387:1647 numbers successfully uploaded to Database
+2022-05-08 23:40:23.320522:Menu has been accessed
+2022-05-09 21:41:52.071594:Menu has been accessed
+2022-05-10 19:27:51.728984:Menu has been accessed
+2022-05-10 19:28:06.295855:DGNPDownload20220510023104.xml.gz added to array
+2022-05-10 19:28:06.296823:Routine download complete, 347 processed
+2022-05-10 19:28:07.006034:347 numbers successfully uploaded to Database
+2022-05-10 19:28:07.483559:DCRDBDownload20220510020103.xml.gz added to array
+2022-05-10 19:28:07.485543:Routine download complete, 2135 processed
+2022-05-10 19:28:12.952380:2135 numbers successfully uploaded to Database
+2022-05-10 19:43:16.651363:Menu has been accessed
+2022-05-10 19:43:50.986412:Menu has been accessed
+2022-05-10 20:01:28.855266:Menu has been accessed
+2022-05-10 20:01:33.935514:DGNPDownload20220510023104.xml.gz added to array
+2022-05-10 20:01:33.936506:Routine download complete, 347 processed
+2022-05-10 20:01:34.865869:347 numbers successfully uploaded to Database
+2022-05-10 20:01:38.369094:DCRDBDownload20220510020103.xml.gz added to array
+2022-05-10 20:01:38.371078:Routine download complete, 2135 processed
+2022-05-10 20:01:46.836064:2135 numbers successfully uploaded to Database
+2022-05-10 20:02:36.941320:Menu has been accessed
+2022-05-10 20:02:39.849911:DGNPDownload20220510023104.xml.gz added to array
+2022-05-10 20:02:39.850903:Routine download complete, 347 processed
+2022-05-10 20:02:40.875058:347 numbers successfully uploaded to Database
+2022-05-10 20:02:44.308800:DCRDBDownload20220510020103.xml.gz added to array
+2022-05-10 20:02:44.310769:Routine download complete, 2135 processed
+2022-05-10 20:02:53.308518:2135 numbers successfully uploaded to Database
+2022-05-10 20:38:10.086444:Menu has been accessed
+2022-05-10 20:38:14.870913:DGNPDownload20220510023104.xml.gz added to array
+2022-05-10 20:38:14.871912:Routine download complete, 347 processed
+2022-05-10 20:38:16.398747:347 numbers successfully uploaded to Database
+2022-05-10 20:38:19.979064:DCRDBDownload20220510020103.xml.gz added to array
+2022-05-10 20:38:19.981047:Routine download complete, 2135 processed
+2022-05-10 20:38:29.163690:2135 numbers successfully uploaded to Database
+2022-05-10 20:38:40.710117:DGNPDownload20220510023104.xml.gz added to array
+2022-05-10 20:38:40.711604:Routine download complete, 347 processed
+2022-05-10 20:38:41.712542:347 numbers successfully uploaded to Database
+2022-05-10 20:38:44.948631:DCRDBDownload20220510020103.xml.gz added to array
+2022-05-10 20:38:44.951111:Routine download complete, 2135 processed
+2022-05-10 20:38:55.174461:2135 numbers successfully uploaded to Database

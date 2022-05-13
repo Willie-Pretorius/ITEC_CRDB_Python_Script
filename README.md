@@ -183,3 +183,16 @@ sudo nginx -t
 sudo service nginx restart
 
 sudo nginx status
+
+
+-----------------------------------------
+update process
+------------------------------------------
+
+git stash
+
+git fetch url [branch]
+
+git pull url [branch] 
+
+

@@ -40,6 +40,7 @@ def ftp_tester(ftp_host,host_port,ftp_user,ftp_pass,path):
 def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
     # print("downloading last update")
     global dir_names,data
+    data = []
     getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,"",[])
     download_list = [dir_names[len(dir_names)-1]]
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
@@ -167,7 +168,6 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
 
 def translator(file,ftp_user):
     global data
-    data =[]
     tree = et.parse(file[slice(0, 31)])
     root = tree.getroot()
     ans = root.find("ActivatedNumbers")

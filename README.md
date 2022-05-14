@@ -73,10 +73,6 @@ sudo systemctl restart mongod
 
 sudo systemctl status mongod
 
-mkdir CRDB
-
-git clone
-
 
 -------------------------------------------
 Download backend Repo.

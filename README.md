@@ -232,7 +232,7 @@ Feature updates.
 
 
 ---------------------------------------
-Required updates before internet ready.
+Required updates before app is internet ready.
 ---------------------------------------
 
 -Build out back end as a seperate REST API

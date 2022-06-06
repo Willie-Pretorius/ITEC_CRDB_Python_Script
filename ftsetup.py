@@ -101,9 +101,7 @@ def configLoader():
 #all current updates and writes them to database
 def firstStart():
     setupWizard()
-    configLoader()
-    Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
-    Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
+
 
 #redownloads and updates database with all update files. Can be used with Purge function
 #to repopulate data.

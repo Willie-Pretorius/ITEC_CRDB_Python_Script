@@ -4,6 +4,7 @@ import os
 import gzip
 import shutil
 import xml.etree.ElementTree as et
+from tqdm import tqdm
 from pymongo import MongoClient
 dir_names=[]
 data = []
@@ -40,7 +41,6 @@ def ftp_tester(ftp_host,host_port,ftp_user,ftp_pass,path):
 def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
     # print("downloading last update")
     global dir_names,data
-    data = []
     getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,"",[])
     download_list = [dir_names[len(dir_names)-1]]
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
@@ -154,7 +154,8 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
     dir_names = []
     ftp.retrlines('NLST', appendFileName)
     if task == "download":
-        for file in download_list:
+        for i in tqdm(range(len(download_list))):
+            file = download_list[i]
             try:
                 with open(file, 'wb') as fp:
                     ftp.retrbinary('RETR ' + file, fp.write)
@@ -168,6 +169,7 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
 
 def translator(file,ftp_user):
     global data
+    data =[]
     tree = et.parse(file[slice(0, 31)])
     root = tree.getroot()
     ans = root.find("ActivatedNumbers")
@@ -202,7 +204,8 @@ def DataWriter(data,ftp_user):
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")
-    for item in data:
+    for i in tqdm(range(len(data))):
+        item = data[i]
         number = item["number"]
         test=mycol.find_one({"number": number})
         if test == None:

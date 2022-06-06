@@ -4,7 +4,7 @@ def menu():
     addLog("Menu has been accessed\n")
     exit_me = False
     while exit_me == False:
-        print("Welcome to CRDB script configurator.\nVersion: Alpha build 0.1 \n Enter ? for help:")
+        print("Welcome to CRDB script configurator.\nVersion: 1.0\n Enter ? for help:")
         command = input("enter command:  ")
         if command == "?":
             print("1. View Logs\n"
@@ -71,6 +71,7 @@ try:
     config = configLoader()
 except:
     firstStart()
+    configLoader()
 menu()
 
 

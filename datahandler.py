@@ -219,6 +219,20 @@ def DataWriter(data,ftp_user):
     addLog(f"{len(data)} numbers successfully uploaded to Database\n")
     sendEmail("CRDB Daily Update", f"{len(data)} from {ftp_user} has been processed and uploaded.\n")
 
+def DataPopulator(data,ftp_user):
+    client = MongoClient('mongodb://127.0.0.1:27017/numbers_db')
+    mydb = client['numbers_db']
+    mycol = mydb['numbers_col']
+    print("dbNumbers successfully opened")
+    for i in tqdm(range(len(data))):
+        item = data[i]
+        number = item["number"]
+        mycol.insert_one({"number": number},item)
+    print("Data successfully uploaded to Database.")
+    client.close()
+    addLog(f"{len(data)} numbers successfully uploaded to Database\n")
+    sendEmail("CRDB Daily Update", f"{len(data)} from {ftp_user} has been processed and uploaded.\n")
+
 def DBTester():
     try:
         client = MongoClient('mongodb://127.0.0.1:27017/numbers_db')

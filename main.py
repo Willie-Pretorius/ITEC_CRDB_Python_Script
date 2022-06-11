@@ -16,7 +16,7 @@ def menu():
                   "7. Test SMTP server\n"
                   "8. Test Database Connection\n"
                   "9. Purge database\n"
-                  "10. Download Data from One time FTP..\n"
+                  "10. Populate database\n"
                   "11. Exit\n"
                   )
         if command == "1":

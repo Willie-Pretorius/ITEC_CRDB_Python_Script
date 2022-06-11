@@ -43,7 +43,7 @@ def OneTimeFTP_EXEC():
     otftp_pass = input("FTP Password: ")
     otpath = input("path('/DWNLDS'):")
     data = OneTimeFTP(otftp_host,otftp_port,otftp_user,otftp_pass,otpath)
-    DataWriter(data)
+    DataPopulator(data)
 
 #writes config to be 0 so the script can run in routine mode.
 def disableConfig():

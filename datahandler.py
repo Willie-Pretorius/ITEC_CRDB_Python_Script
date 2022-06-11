@@ -166,12 +166,15 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
 def translator(file,ftp_user):
     global data
     data =[]
+    print(f"Opening {file}")
     tree = et.parse(file[slice(0, 31)])
     root = tree.getroot()
     ans = root.find("ActivatedNumbers")
     try:
         numbers = ans.findall("ActivatedNumber")
-        for number in numbers:
+        print("Getting data ready to write to Database.")
+        for i in tqdm(range(len(numbers))):
+            number = numbers[i]
             id = number.find("IDNumber").text
             try:
                 msisdnElement = number.find("MSISDN")
@@ -200,6 +203,7 @@ def DataWriter(data,ftp_user):
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")
+    print("Writing data to database")
     for i in tqdm(range(len(data))):
         item = data[i]
         number = item["number"]
@@ -220,6 +224,7 @@ def DataPopulator(data,ftp_user):
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")
+    print("Writing data to database")
     for i in tqdm(range(len(data))):
         item = data[i]
         number = item["number"]

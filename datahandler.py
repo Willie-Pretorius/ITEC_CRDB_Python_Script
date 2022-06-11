@@ -96,31 +96,27 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
 def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
     global dir_names, data
-    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"",[])
-    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"download",dir_names)
-    for file in dir_names:
-        translator(file,ftp_user)
-    for file in dir_names:
+    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "", [])
+    download_list = [dir_names[len(dir_names) - 1]]
+    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
+    for file in download_list:
+        translator(file, ftp_user)
+    try:
+        os.remove(file)
+    except:
+        print(f"Couldn't delete {file}")
+        addLog(f"Couldn't delete {file}")
+    try:
+        os.remove(file[slice(0, len(file) - 3)])
+    except:
         try:
-            os.remove(file)
+            os.remove(file[slice(0, len(file) - 2)])
         except:
-            print(f"Couldn't delete {file}")
-            addLog(f"Couldn't delete {file}")
-        try:
-            os.remove(file[slice(0, len(file) - 3)])
-        except:
-            try:
-                os.remove(file[slice(0, len(file) - 2)])
-            except:
-                print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
-                addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
-
-    if data == []:
-        print("Failed: Download all data function.")
-    else:
-        print("Download all data function complete.")
-        addLog("Download all data function complete.\n")
-    DataWriter(data,ftp_user)
+            print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
+            addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
+    print(f"Routine download complete, {len(data)} processed")
+    addLog(f"Routine download complete, {len(data)} processed\n")
+    DataPopulator(data,ftp_user)
 
 
 def appendFileName(string):

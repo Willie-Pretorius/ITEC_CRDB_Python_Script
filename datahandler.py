@@ -3,7 +3,7 @@ import ftplib
 import os
 import gzip
 import shutil
-import xml.etree.ElementTree as et
+from xml.etree.ElementTree import iterparse
 from tqdm import tqdm
 from pymongo import MongoClient
 dir_names=[]
@@ -100,7 +100,9 @@ def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
     download_list = [dir_names[len(dir_names) - 1]]
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
     for file in download_list:
-        translator(file, ftp_user)
+        filename = file[slice(0, len(file) - 3)]
+        print(filename)
+        translator(filename, ftp_user)
     try:
         os.remove(file)
     except:
@@ -114,8 +116,8 @@ def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
         except:
             print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
             addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
-    print(f"Routine download complete, {len(data)} processed")
-    addLog(f"Routine download complete, {len(data)} processed\n")
+    print(f"Database populated, {len(data)} processed")
+    addLog(f"Database populated, {len(data)} processed\n")
     DataPopulator(data,ftp_user)
 
 
@@ -163,37 +165,46 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
     ftp.quit()
 
 
-def translator(file,ftp_user):
+def translator(file, ftp_user):
     global data
-    data =[]
+    data = []
+    object = {}
+    i=0
+    start = 0
     print(f"Opening {file}")
-    tree = et.parse(file[slice(0, 31)])
-    root = tree.getroot()
-    ans = root.find("ActivatedNumbers")
-    try:
-        numbers = ans.findall("ActivatedNumber")
-        print("Getting data ready to write to Database.")
-        for i in tqdm(range(len(numbers))):
-            number = numbers[i]
-            id = number.find("IDNumber").text
+    for event, elem in iterparse(file, events=("start", "end")):
+        if event == "start" and elem.tag == "ActivatedNumber":
+            object = {}
+            start = 1
+        if elem.tag != "ActivatedNumber" and start == 1:
+            if elem.tag == "IDNumber" or elem.tag == "DNFrom" or elem.tag == "DNTo" or elem.tag == "MSISDN":
+                id = elem.text
+                object.update({elem.tag: id})
+        if event == "end" and elem.tag == "ActivatedNumber":
             try:
-                msisdnElement = number.find("MSISDN")
-                msisdn = msisdnElement.text
+                if object["DNTo"] != object["DNFrom"]:
+                    ifrom = int(object["DNFrom"])
+                    ito = int(object["DNTo"])
+                    total = ito - ifrom
+                    for i in range(0, total):
+                        number = ifrom + i
+                        final = {'id': object['IDNumber'], 'number': number}
+                        data.append(final)
+                else:
+                    final = {'id': object['IDNumber'], 'number': object['DNTo']}
+                    data.append(final)
             except:
-                dnr = number.find("DNRanges")
-                msisdnElement = dnr.find("DNFrom")
-                msisdn = msisdnElement.text
-            object = {
-                "id": id,
-                "number": msisdn,
-            }
-            data.append(object)
-        print(f"{file} added to array.")
-        addLog(f"{file} added to array\n")
-    except:
+                final = {'id': object['IDNumber'], 'number': object['MSISDN']}
+                data.append(final)
+            start = 0
+            elem.clear()
+    converted = len(data)
+    if converted == 0:
         print(f"{file} from {ftp_user} is empty.")
         addLog(f"{file} from {ftp_user} is empty.\n")
-
+    else:
+        print(f"{converted} records from {file} added to array.")
+        addLog(f"{file} added to array\n")
 
 
 #Pymongo functions.

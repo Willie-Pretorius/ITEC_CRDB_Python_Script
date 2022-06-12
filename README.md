@@ -89,6 +89,11 @@ sudo systemctl restart mongod
 sudo systemctl status mongod
 
 
+--------------------------
+After populating data index numbers to reduce query latency to next to nothing.
+--------------------
+
+db.numbers_col.createIndex({"number":1});
 
 -------------------------------------------
 Download backend Repo.

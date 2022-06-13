@@ -197,37 +197,36 @@ def translator(file, ftp_user):
             object = {}
             start = 1
         if elem.tag != "ActivatedNumber" and start == 1:
-            if elem.tag == "IDNumber" or elem.tag == "DNFrom" or elem.tag == "DNTo" or elem.tag == "MSISDN":
+            if elem.tag == "IDNumber" or elem.tag == "DNFrom" or elem.tag == "DNTo" or elem.tag == "MSISDN" or elem.tag == "RNORoute" or elem.tag == "Action":
                 if event == "start":
                     string = str(elem.text)
                     object.update({elem.tag: string})
         if event == "end" and elem.tag == "ActivatedNumber":
             try:
                 if object["DNTo"] != object["DNFrom"]:
-                    # print(f"{object['DNFrom']},{object['DNTo']}")
                     try:
                         ifrom = int(object["DNFrom"])
                         ito = int(object["DNTo"])
                         total = ito - ifrom
                         for i in range(0, total):
                             number = str(ifrom + i)
-                            final = {'id': object['IDNumber'], 'number': number}
+                            final = {'id': object['IDNumber'], 'number': number, 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                             data.append(final)
                     except:
                         ito = object['DNTo']
                         ifrom = object['DNFrom']
                         if ito == "None":
-                            final = {'id': object['IDNumber'], 'number': object['DNFrom']}
+                            final = {'id': object['IDNumber'], 'number': object['DNFrom'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                         if ifrom == "None":
-                            final = {'id': object['IDNumber'], 'number': object['DNTo']}
+                            final = {'id': object['IDNumber'], 'number': object['DNTo'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                         data.append(final)
                 else:
-                    final = {'id': object['IDNumber'], 'number': object['DNTo']}
+                    final = {'id': object['IDNumber'], 'number': object['DNTo'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                     data.append(final)
                 # print(final)
             except:
                 # print(f"{object['IDNumber']},{object['MSISDN']}")
-                final = {'id': object['IDNumber'], 'number': object['MSISDN']}
+                final = {'id': object['IDNumber'], 'number': object['MSISDN'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                 # print(final)
                 data.append(final)
                 # print(data)
@@ -241,7 +240,6 @@ def translator(file, ftp_user):
     else:
         print(f"{converted} records from {file} added to array.")
         addLog(f"{file} added to array\n")
-
 
 #Pymongo functions.
 

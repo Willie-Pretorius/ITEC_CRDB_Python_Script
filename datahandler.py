@@ -72,7 +72,7 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
 
 def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
-    global dir_names, data
+    global dir_names, data, start
     start = "D"
     data = []
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"",[])

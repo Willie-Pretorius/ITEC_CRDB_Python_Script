@@ -208,7 +208,7 @@ def translator(file, ftp_user):
                         ifrom = int(object["DNFrom"])
                         ito = int(object["DNTo"])
                         total = ito - ifrom
-                        for i in range(0, total):
+                        for i in range(0, (total+1)):
                             number = str(ifrom + i)
                             final = {'id': object['IDNumber'], 'number': number, 'RNORoute': object['RNORoute'], 'Action':object['Action']}
                             data.append(final)

@@ -36,14 +36,14 @@ def setupWizard():
         file.close()
 
 def OneTimeFTP_EXEC():
-    print("Configure One Time FTP server\n Please take a minute to configure your porting.co.za ftp settings")
-    otftp_host = input("FTP Server address: ")
-    otftp_port = int(input("FTP port: "))
-    otftp_user = input("FTP Username: ")
-    otftp_pass = input("FTP Password: ")
-    otpath = input("path('/DWNLDS'):")
-    data = OneTimeFTP(otftp_host,otftp_port,otftp_user,otftp_pass,otpath)
-    DataWriter(data)
+    # print("Configure One Time FTP server\n Please take a minute to configure your porting.co.za ftp settings")
+    # otftp_host = input("FTP Server address: ")
+    # otftp_port = int(input("FTP port: "))
+    # otftp_user = input("FTP Username: ")
+    # otftp_pass = input("FTP Password: ")
+    # otpath = input("path('/DWNLDS'):")
+    OneTimeFTP(ftp_host, host_port, ftp_user, ftp_pass, path)
+    OneTimeFTP(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
 
 #writes config to be 0 so the script can run in routine mode.
 def disableConfig():
@@ -101,9 +101,7 @@ def configLoader():
 #all current updates and writes them to database
 def firstStart():
     setupWizard()
-    configLoader()
-    Download_all_updates(ftp_host, host_port, ftp_user, ftp_pass, path)
-    Download_all_updates(ftp_host2, host_port2, ftp_user2, ftp_pass2, path2)
+
 
 #redownloads and updates database with all update files. Can be used with Purge function
 #to repopulate data.

@@ -3,10 +3,12 @@ import ftplib
 import os
 import gzip
 import shutil
-import xml.etree.ElementTree as et
+from xml.etree.ElementTree import iterparse
+from tqdm import tqdm
 from pymongo import MongoClient
 dir_names=[]
 data = []
+start = "D"
 
 
 def ftp_tester(ftp_host,host_port,ftp_user,ftp_pass,path):
@@ -40,12 +42,17 @@ def ftp_tester(ftp_host,host_port,ftp_user,ftp_pass,path):
 def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
     # print("downloading last update")
     global dir_names,data
-    data = []
+    start = "D"
     getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,"",[])
     download_list = [dir_names[len(dir_names)-1]]
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
     for file in download_list:
-        translator(file, ftp_user)
+        try:
+            filename = file[slice(0, len(file) - 3)]
+            translator(filename, ftp_user)
+        except:
+            filename = file[slice(0, len(file) - 2)]
+            translator(filename, ftp_user)
     try:
         os.remove(file)
     except:
@@ -65,12 +72,19 @@ def Download_latest_update(ftp_host,host_port,ftp_user,ftp_pass,path):
 
 def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
-    global dir_names, data
+    global dir_names, data, start
+    start = "D"
     data = []
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"",[])
     getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"download",dir_names)
+    print(dir_names)
     for file in dir_names:
-        translator(file,ftp_user)
+        try:
+            filename = file[slice(0, len(file) - 3)]
+            translator(filename, ftp_user)
+        except:
+            filename = file[slice(0, len(file) - 2)]
+            translator(filename, ftp_user)
     for file in dir_names:
         try:
             os.remove(file)
@@ -95,38 +109,42 @@ def Download_all_updates(ftp_host,host_port,ftp_user,ftp_pass,path):
 
 def OneTimeFTP(ftp_host,host_port,ftp_user,ftp_pass,path):
     print("Downloading all updates")
-    global dir_names, data
-    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"",[])
-    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path,"download",dir_names)
-    for file in dir_names:
-        translator(file,ftp_user)
-    for file in dir_names:
+    global dir_names, data, start
+    start = "F"
+    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "", [])
+    download_list = [dir_names[len(dir_names) - 1]]
+    getFiles(ftp_host, host_port, ftp_user, ftp_pass, path, "download", download_list)
+    for file in download_list:
         try:
-            os.remove(file)
+            filename = file[slice(0, len(file) - 3)]
+            translator(filename, ftp_user)
         except:
-            print(f"Couldn't delete {file}")
-            addLog(f"Couldn't delete {file}")
+            filename = file[slice(0, len(file) - 2)]
+            translator(filename, ftp_user)
+    try:
+        os.remove(file)
+    except:
+        print(f"Couldn't delete {file}")
+        addLog(f"Couldn't delete {file}")
+    try:
+        os.remove(file[slice(0, len(file) - 3)])
+    except:
         try:
-            os.remove(file[slice(0, len(file) - 3)])
+            os.remove(file[slice(0, len(file) - 2)])
         except:
-            try:
-                os.remove(file[slice(0, len(file) - 2)])
-            except:
-                print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
-                addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
-
-    if data == []:
-        print("Failed: Download all data function.")
-    else:
-        print("Download all data function complete.")
-        addLog("Download all data function complete.\n")
-    DataWriter(data,ftp_user)
+            print(f"Couldn't delete {file[slice(0, len(file) - 3)]}")
+            addLog(f"Couldn't delete {file[slice(0, len(file) - 3)]}\n")
+    print(f"Routine download complete, {len(data)} processed")
+    addLog(f"Routine download complete, {len(data)} processed\n")
+    DataPopulator(data,ftp_user)
 
 
 def appendFileName(string):
-    global dir_names
-    dir_names.append(string)
-    print(string)
+    global dir_names, start
+    if string[0] == start:
+        dir_names.append(string)
+        print(string)
+
 
 def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
     global dir_names
@@ -154,7 +172,8 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
     dir_names = []
     ftp.retrlines('NLST', appendFileName)
     if task == "download":
-        for file in download_list:
+        for i in tqdm(range(len(download_list))):
+            file = download_list[i]
             try:
                 with open(file, 'wb') as fp:
                     ftp.retrbinary('RETR ' + file, fp.write)
@@ -166,34 +185,61 @@ def getFiles(ftp_host,host_port,ftp_user,ftp_pass,path,task,download_list):
     ftp.quit()
 
 
-def translator(file,ftp_user):
+def translator(file, ftp_user):
     global data
-    tree = et.parse(file[slice(0, 31)])
-    root = tree.getroot()
-    ans = root.find("ActivatedNumbers")
-    try:
-        numbers = ans.findall("ActivatedNumber")
-        for number in numbers:
-            id = number.find("IDNumber").text
+    data = []
+    object = {}
+    i=0
+    start = 0
+    print(f"Opening {file}")
+    for event, elem in iterparse(file, events=("start", "end")):
+        if event == "start" and elem.tag == "ActivatedNumber":
+            object = {}
+            start = 1
+        if elem.tag != "ActivatedNumber" and start == 1:
+            if elem.tag == "IDNumber" or elem.tag == "DNFrom" or elem.tag == "DNTo" or elem.tag == "MSISDN" or elem.tag == "RNORoute" or elem.tag == "Action":
+                if event == "start":
+                    string = str(elem.text)
+                    object.update({elem.tag: string})
+        if event == "end" and elem.tag == "ActivatedNumber":
             try:
-                msisdnElement = number.find("MSISDN")
-                msisdn = msisdnElement.text
+                if object["DNTo"] != object["DNFrom"]:
+                    try:
+                        ifrom = int(object["DNFrom"])
+                        ito = int(object["DNTo"])
+                        total = ito - ifrom
+                        for i in range(0, (total+1)):
+                            number = str(ifrom + i)
+                            final = {'id': object['IDNumber'], 'number': number, 'RNORoute': object['RNORoute'], 'Action':object['Action']}
+                            data.append(final)
+                    except:
+                        ito = object['DNTo']
+                        ifrom = object['DNFrom']
+                        if ito == "None":
+                            final = {'id': object['IDNumber'], 'number': object['DNFrom'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
+                        if ifrom == "None":
+                            final = {'id': object['IDNumber'], 'number': object['DNTo'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
+                        data.append(final)
+                else:
+                    final = {'id': object['IDNumber'], 'number': object['DNTo'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
+                    data.append(final)
+                # print(final)
             except:
-                dnr = number.find("DNRanges")
-                msisdnElement = dnr.find("DNFrom")
-                msisdn = msisdnElement.text
-            object = {
-                "id": id,
-                "number": msisdn,
-            }
-            data.append(object)
-        print(f"{file} added to array.")
-        addLog(f"{file} added to array\n")
-    except:
+                # print(f"{object['IDNumber']},{object['MSISDN']}")
+                final = {'id': object['IDNumber'], 'number': object['MSISDN'], 'RNORoute': object['RNORoute'], 'Action':object['Action']}
+                # print(final)
+                data.append(final)
+                # print(data)
+            start = 0
+            elem.clear()
+    # print(data)
+    converted = len(data)
+    if converted == 0:
         print(f"{file} from {ftp_user} is empty.")
         addLog(f"{file} from {ftp_user} is empty.\n")
-
-
+    else:
+        print(f"{converted} records from {file} added to array.")
+        addLog(f"{file} added to array\n")
 
 #Pymongo functions.
 
@@ -202,15 +248,31 @@ def DataWriter(data,ftp_user):
     mydb = client['numbers_db']
     mycol = mydb['numbers_col']
     print("dbNumbers successfully opened")
-    for item in data:
+    print("Writing data to database")
+    for i in tqdm(range(len(data))):
+        item = data[i]
         number = item["number"]
         test=mycol.find_one({"number": number})
         if test == None:
-            mycol.insert_one({"number": number},item)
+            mycol.insert_one(item)
         elif item == test:
             pass
         else:
             mycol.replace_one({"number": number},item)
+    print("Data successfully uploaded to Database.")
+    client.close()
+    addLog(f"{len(data)} numbers successfully uploaded to Database\n")
+    sendEmail("CRDB Daily Update", f"{len(data)} from {ftp_user} has been processed and uploaded.\n")
+
+def DataPopulator(data,ftp_user):
+    client = MongoClient('mongodb://127.0.0.1:27017/numbers_db')
+    mydb = client['numbers_db']
+    mycol = mydb['numbers_col']
+    print("dbNumbers successfully opened")
+    print("Writing data to database")
+    for i in tqdm(range(len(data))):
+        item = data[i]
+        mycol.insert_one(item)
     print("Data successfully uploaded to Database.")
     client.close()
     addLog(f"{len(data)} numbers successfully uploaded to Database\n")

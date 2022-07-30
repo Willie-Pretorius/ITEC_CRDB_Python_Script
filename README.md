@@ -4,9 +4,24 @@ Deployment Guide: Ubuntu 20.04.4
 
 https://releases.ubuntu.com/20.04.4/?_ga=2.126533133.1693286580.1651167948-1268987514.1651167948
 
+ubuntu-20.04.4-live-server-amd64.iso
+
 sudo apt-get update
 
 sudo apt upgrade
+
+
+---------------------------
+Add a developer user.
+---------------------------
+
+sudo useradd -m ####
+
+sudo useradd -m #### sudo
+
+sudo passwd ####
+
+from developer user
 
 
 -----------------------------------------
@@ -73,19 +88,22 @@ sudo systemctl restart mongod
 
 sudo systemctl status mongod
 
-mkdir CRDB
 
-git clone
+--------------------------
+After populating data. Index number column to reduce query latency to next to nothing.
+--------------------
 
+db.numbers_col.createIndex({"number":1});
 
 -------------------------------------------
 Download backend Repo.
 -------------------------------------------
+
 git init
 
 git pull https://github.com/Willie-Pretorius/ITEC_CRDB_Python_Script.git [branch]
 
-sudo apt-get install pymongo
+sudo apt-get install python3-pymongo
 
 
 python3 main.py
@@ -113,7 +131,8 @@ add the following text to schedule routing script to run at 5am everyday.
 ------------------------------------------------
 sudo npm install -g pm2 
 
-pm2 start app.js from frontend dir
+pm2 start app.js
+#from the frontend directory
 
 pm2 startup
 
@@ -131,6 +150,7 @@ pm2 stop.
 
 pm2 unstartup systemd
 
+pm2 delete
 
 
 -----------------------------------------------------
@@ -141,9 +161,9 @@ ufw firewall setup
 
 sudo ufw allow from 172.0.0.0/24 to any port 22 proto tcp
 
-sudo ufw allow from 192.168.0.0/24 to any port 22 proto tcp
+sudo ufw allow from 192.168.217.0/24 to any port 22 proto tcp
 
-sudo ufw allow http
+sudo ufw allow from 192.168.217.0/24 to any port 80 proto tcp
 
 sudo ufw allow https
 
@@ -182,12 +202,18 @@ sudo nginx -t
 
 sudo service nginx restart
 
-sudo nginx status
+commands:
+
+systemctl status nginx
+
+systemctl restart nginx
 
 
 -----------------------------------------
 update process
-------------------------------------------
+-----------------------------------------
+
+pm2 stop app.js
 
 git stash
 
@@ -195,4 +221,27 @@ git fetch url [branch]
 
 git pull url [branch] 
 
+pm2 start app.js
 
+
+
+-------------------------------------
+Feature updates.
+-------------------------------------
+
+-More query options.
+
+-Add resource and storage monitoring.
+
+-Rebuild frontend in REACT.js once backend is fully developed.
+
+
+---------------------------------------
+Required updates before app is internet ready.
+---------------------------------------
+
+-Build out back end as a seperate REST API
+
+-Implement API keys and Authentication between front and backend.
+
+-Seperate backend into a seperate linux docker instance or vm.
